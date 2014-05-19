@@ -89,6 +89,7 @@
 		086E6396191884C500DDB83F /* IWSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 086E6395191884C500DDB83F /* IWSearchBar.m */; };
 		086E639919188CD200DDB83F /* IWTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 086E639819188CD200DDB83F /* IWTitleButton.m */; };
 		086E63A01918938100DDB83F /* IWNewfeatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 086E639F1918938100DDB83F /* IWNewfeatureViewController.m */; };
+		086EF0C61929EA5A00A9EF6D /* IWComposePhotosView.m in Sources */ = {isa = PBXBuildFile; fileRef = 086EF0C51929EA5A00A9EF6D /* IWComposePhotosView.m */; };
 		08AFD1AD191F069700F4A911 /* IWStatusToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AFD1AC191F069700F4A911 /* IWStatusToolbar.m */; };
 		08AFD1B0191F1E2E00F4A911 /* IWReweetStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AFD1AF191F1E2E00F4A911 /* IWReweetStatusView.m */; };
 		08AFD1B3191F20BA00F4A911 /* IWStatusTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AFD1B2191F20BA00F4A911 /* IWStatusTopView.m */; };
@@ -287,6 +288,8 @@
 		086E639819188CD200DDB83F /* IWTitleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IWTitleButton.m; sourceTree = "<group>"; };
 		086E639E1918938100DDB83F /* IWNewfeatureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IWNewfeatureViewController.h; sourceTree = "<group>"; };
 		086E639F1918938100DDB83F /* IWNewfeatureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IWNewfeatureViewController.m; sourceTree = "<group>"; };
+		086EF0C41929EA5A00A9EF6D /* IWComposePhotosView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IWComposePhotosView.h; sourceTree = "<group>"; };
+		086EF0C51929EA5A00A9EF6D /* IWComposePhotosView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IWComposePhotosView.m; sourceTree = "<group>"; };
 		08AFD1AB191F069700F4A911 /* IWStatusToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IWStatusToolbar.h; sourceTree = "<group>"; };
 		08AFD1AC191F069700F4A911 /* IWStatusToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IWStatusToolbar.m; sourceTree = "<group>"; };
 		08AFD1AE191F1E2E00F4A911 /* IWReweetStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IWReweetStatusView.h; sourceTree = "<group>"; };
@@ -708,6 +711,8 @@
 				082BF406192998FE0034484F /* IWTextView.m */,
 				082BF4081929B0390034484F /* IWComposeToolbar.h */,
 				082BF4091929B0390034484F /* IWComposeToolbar.m */,
+				086EF0C41929EA5A00A9EF6D /* IWComposePhotosView.h */,
+				086EF0C51929EA5A00A9EF6D /* IWComposePhotosView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1071,6 +1076,7 @@
 				0863B9DD191B6E5B00B6BA5F /* SDWebImageDownloaderOperation.m in Sources */,
 				0863BA06191B7C1D00B6BA5F /* NSObject+MJKeyValue.m in Sources */,
 				0863B9DB191B6E5B00B6BA5F /* SDWebImageDecoder.m in Sources */,
+				086EF0C61929EA5A00A9EF6D /* IWComposePhotosView.m in Sources */,
 				0863B9DE191B6E5B00B6BA5F /* SDWebImageManager.m in Sources */,
 				080883E119205BD900A6840F /* MJPhoto.m in Sources */,
 				082BF40A1929B0390034484F /* IWComposeToolbar.m in Sources */,

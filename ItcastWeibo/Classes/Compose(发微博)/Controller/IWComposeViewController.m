@@ -17,11 +17,12 @@
 #import "IWAccountTool.h"
 #import "MBProgressHUD+MJ.h"
 #import "IWComposeToolbar.h"
+#import "IWComposePhotosView.h"
 
 @interface IWComposeViewController () <UITextViewDelegate, IWComposeToolbarDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 @property (nonatomic, weak) IWTextView *textView;
 @property (nonatomic, weak) IWComposeToolbar *toolbar;
-@property (nonatomic, weak) UIImageView *imageView;
+@property (nonatomic, weak) IWComposePhotosView *photosView;
 @end
 
 @implementation IWComposeViewController
@@ -40,19 +41,22 @@
     // 添加toolbar
     [self setupToolbar];
     
-    // 添加imageView
-    [self setupImageView];
+    // 添加photosView
+    [self setupPhotosView];
 }
 
 /**
- *  添加imageView
+ *  添加photosView
  */
-- (void)setupImageView
+- (void)setupPhotosView
 {
-    UIImageView *imageView = [[UIImageView alloc] init];
-    imageView.frame = CGRectMake(5, 80, 60, 60);
-    [self.textView addSubview:imageView];
-    self.imageView = imageView;
+    IWComposePhotosView *photosView = [[IWComposePhotosView alloc] init];
+    CGFloat photosW = self.textView.frame.size.width;
+    CGFloat photosH = self.textView.frame.size.height;
+    CGFloat photosY = 80;
+    photosView.frame = CGRectMake(0, photosY, photosW, photosH);
+    [self.textView addSubview:photosView];
+    self.photosView = photosView;
 }
 
 /**
@@ -118,7 +122,7 @@
     
     // 2.去的图片
     UIImage *image = info[UIImagePickerControllerOriginalImage];
-    self.imageView.image = image;
+    [self.photosView addImage:image];
 }
 
 /**
@@ -226,7 +230,7 @@
  */
 - (void)send
 {
-    if (self.imageView.image) { // 有图片
+    if (self.photosView.totalImages.count) { // 有图片
         [self sendWithImage];
     } else { // 没有图片
         [self sendWithoutImage];
@@ -252,8 +256,16 @@
     // 3.发送请求
     [mgr POST:@"https://upload.api.weibo.com/2/statuses/upload.json" parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) { // 在发送请求之前调用这个block
         // 必须在这里说明要上传哪些文件
-        NSData *data = UIImageJPEGRepresentation(self.imageView.image, 1.0);
-        [formData appendPartWithFileData:data name:@"pic" fileName:@"" mimeType:@"image/jpeg"];
+        NSArray *images = [self.photosView totalImages];
+//        int count = 0;
+        for (UIImage *image in images) {
+//            count++;
+            NSData *data = UIImageJPEGRepresentation(image, 0.000001);
+//            NSString *filename = [NSString stringWithFormat:@"%d.jpg", count];
+            
+            // 发送多张图片用同一个name即可（同一个请求参数名字，服务器利用数组接收即可）
+            [formData appendPartWithFileData:data name:@"pic" fileName:@"" mimeType:@"image/jpeg"];
+        }
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [MBProgressHUD showSuccess:@"发送成功"];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
