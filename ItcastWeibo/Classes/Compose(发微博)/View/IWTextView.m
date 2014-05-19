@@ -20,7 +20,6 @@
     if (self) {
         // 1.添加提示文字
         UILabel *placeholderLabel = [[UILabel alloc] init];
-//        [placeholderLabel sizeToFit];
         placeholderLabel.textColor = [UIColor lightGrayColor];
         placeholderLabel.hidden = YES;
         placeholderLabel.numberOfLines = 0;
@@ -53,7 +52,6 @@
     } else {
         self.placeholderLabel.hidden = YES;
     }
-//    self.placeholderLabel.hidden = (placeholder.length == 0);
 }
 
 - (void)setPlaceholderColor:(UIColor *)placeholderColor
