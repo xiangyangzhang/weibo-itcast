@@ -38,6 +38,7 @@
 		0829D90A19173FFE005E4B1D /* IWTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0829D90919173FFE005E4B1D /* IWTabBar.m */; };
 		082BF403192996750034484F /* IWComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 082BF402192996750034484F /* IWComposeViewController.m */; };
 		082BF407192998FE0034484F /* IWTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 082BF406192998FE0034484F /* IWTextView.m */; };
+		082BF40A1929B0390034484F /* IWComposeToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 082BF4091929B0390034484F /* IWComposeToolbar.m */; };
 		083E0BAC1918C2D20008EA6B /* IWPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 083E0BAB1918C2D20008EA6B /* IWPageControl.m */; };
 		085052E1191C66AC006484D8 /* IWStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 085052E0191C66AC006484D8 /* IWStatusCell.m */; };
 		085052E4191C7A27006484D8 /* IWStatusFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 085052E3191C7A27006484D8 /* IWStatusFrame.m */; };
@@ -182,6 +183,8 @@
 		082BF402192996750034484F /* IWComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IWComposeViewController.m; sourceTree = "<group>"; };
 		082BF405192998FE0034484F /* IWTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IWTextView.h; sourceTree = "<group>"; };
 		082BF406192998FE0034484F /* IWTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IWTextView.m; sourceTree = "<group>"; };
+		082BF4081929B0390034484F /* IWComposeToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IWComposeToolbar.h; sourceTree = "<group>"; };
+		082BF4091929B0390034484F /* IWComposeToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IWComposeToolbar.m; sourceTree = "<group>"; };
 		083E0BAA1918C2D20008EA6B /* IWPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IWPageControl.h; sourceTree = "<group>"; };
 		083E0BAB1918C2D20008EA6B /* IWPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IWPageControl.m; sourceTree = "<group>"; };
 		085052DF191C66AC006484D8 /* IWStatusCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IWStatusCell.h; sourceTree = "<group>"; };
@@ -703,6 +706,8 @@
 			children = (
 				082BF405192998FE0034484F /* IWTextView.h */,
 				082BF406192998FE0034484F /* IWTextView.m */,
+				082BF4081929B0390034484F /* IWComposeToolbar.h */,
+				082BF4091929B0390034484F /* IWComposeToolbar.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1068,6 +1073,7 @@
 				0863B9DB191B6E5B00B6BA5F /* SDWebImageDecoder.m in Sources */,
 				0863B9DE191B6E5B00B6BA5F /* SDWebImageManager.m in Sources */,
 				080883E119205BD900A6840F /* MJPhoto.m in Sources */,
+				082BF40A1929B0390034484F /* IWComposeToolbar.m in Sources */,
 				0829D8FC19173977005E4B1D /* IWTabBarViewController.m in Sources */,
 				086E63901918724500DDB83F /* IWNavigationController.m in Sources */,
 				0863B98C191B36AC00B6BA5F /* MBProgressHUD.m in Sources */,
