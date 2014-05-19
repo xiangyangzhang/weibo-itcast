@@ -46,3 +46,6 @@
 #define IWPhotoW 70
 #define IWPhotoH 70
 #define IWPhotoMargin 10
+
+// 7.常用的对象
+#define IWNotificationCenter [NSNotificationCenter defaultCenter]

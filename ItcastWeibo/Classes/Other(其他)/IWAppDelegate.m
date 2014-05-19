@@ -12,6 +12,7 @@
 #import "IWWeiboTool.h"
 #import "IWAccountTool.h"
 #import "IWNewfeatureViewController.h"
+#import "SDWebImageManager.h"
 
 @implementation IWAppDelegate
 
@@ -56,6 +57,14 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
+{
+    // 停止下载所有图片
+    [[SDWebImageManager sharedManager] cancelAll];
+    // 清除内存中的图片
+    [[SDWebImageManager sharedManager].imageCache clearMemory];
 }
 
 @end
