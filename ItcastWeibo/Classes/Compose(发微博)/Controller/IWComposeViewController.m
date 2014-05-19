@@ -119,8 +119,6 @@
     // 2.去的图片
     UIImage *image = info[UIImagePickerControllerOriginalImage];
     self.imageView.image = image;
-    
-    NSLog(@"%@", info);
 }
 
 /**
@@ -228,6 +226,46 @@
  */
 - (void)send
 {
+    if (self.imageView.image) { // 有图片
+        [self sendWithImage];
+    } else { // 没有图片
+        [self sendWithoutImage];
+    }
+    
+    // 关闭控制器
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+/**
+ *  发有图片的微博
+ */
+- (void)sendWithImage
+{
+    // 1.创建请求管理对象
+    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
+    
+    // 2.封装请求参数
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"status"] = self.textView.text;
+    params[@"access_token"] = [IWAccountTool account].access_token;
+    
+    // 3.发送请求
+    [mgr POST:@"https://upload.api.weibo.com/2/statuses/upload.json" parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) { // 在发送请求之前调用这个block
+        // 必须在这里说明要上传哪些文件
+        NSData *data = UIImageJPEGRepresentation(self.imageView.image, 1.0);
+        [formData appendPartWithFileData:data name:@"pic" fileName:@"" mimeType:@"image/jpeg"];
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [MBProgressHUD showSuccess:@"发送成功"];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [MBProgressHUD showError:@"发送失败"];
+    }];
+}
+
+/**
+ *  发没有图片的微博
+ */
+- (void)sendWithoutImage
+{
     // 1.创建请求管理对象
     AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
     
@@ -243,9 +281,5 @@
       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
           [MBProgressHUD showError:@"发送失败"];
       }];
-    
-    // 4.关闭控制器
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
-
 @end
