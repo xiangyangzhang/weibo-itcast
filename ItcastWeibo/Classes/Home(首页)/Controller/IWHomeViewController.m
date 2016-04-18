@@ -10,7 +10,6 @@
 #import "IWBadgeButton.h"
 #import "UIBarButtonItem+MJ.h"
 #import "IWTitleButton.h"
-#import "AFNetworking.h"
 #import "IWAccountTool.h"
 #import "IWAccount.h"
 #import "UIImageView+WebCache.h"
@@ -21,6 +20,7 @@
 #import "IWStatusCell.h"
 #import "IWUser.h"
 #import "MJRefresh.h"
+#import "IWHttpTool.h"
 
 @interface IWHomeViewController () <MJRefreshBaseViewDelegate>
 @property (nonatomic, weak) IWTitleButton *titleButton;
@@ -58,31 +58,24 @@
  */
 - (void)setupUserData
 {
-    // 1.创建请求管理对象
-    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
-    
-    // 2.封装请求参数
+    // 1.封装请求参数
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"access_token"] = [IWAccountTool account].access_token;
     params[@"uid"] = @([IWAccountTool account].uid);
     
-    // 3.发送请求
-    
-    [mgr GET:@"https://api.weibo.com/2/users/show.json" parameters:params
-     success:^(AFHTTPRequestOperation *operation, id responseObject) {
-         
-         // 字典转模型
-         IWUser *user = [IWUser objectWithKeyValues:responseObject];
-         // 设置标题文字
-         [self.titleButton setTitle:user.name forState:UIControlStateNormal];
-         // 保存昵称
-         IWAccount *account = [IWAccountTool account];
-         account.name = user.name;
-         [IWAccountTool saveAccount:account];
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    // 2.发送请求
+    [IWHttpTool getWithURL:@"https://api.weibo.com/2/users/show.json" params:params success:^(id json) {
+        // 字典转模型
+        IWUser *user = [IWUser objectWithKeyValues:json];
+        // 设置标题文字
+        [self.titleButton setTitle:user.name forState:UIControlStateNormal];
+        // 保存昵称
+        IWAccount *account = [IWAccountTool account];
+        account.name = user.name;
+        [IWAccountTool saveAccount:account];
+    } failure:^(NSError *error) {
         
-         
-     }];
+    }];
 }
 
 /**
@@ -132,10 +125,7 @@
  */
 - (void)loadMoreData
 {
-    // 1.创建请求管理对象
-    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
-    
-    // 2.封装请求参数
+    // 1.封装请求参数
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"access_token"] = [IWAccountTool account].access_token;
     params[@"count"] = @5;
@@ -146,32 +136,31 @@
         params[@"max_id"] = @(maxId);
     }
     
-    // 3.发送请求
-    [mgr GET:@"https://api.weibo.com/2/statuses/home_timeline.json" parameters:params
-     success:^(AFHTTPRequestOperation *operation, id responseObject) {
-         // 将字典数组转为模型数组(里面放的就是IWStatus模型)
-         NSArray *statusArray = [IWStatus objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
-         // 创建frame模型对象
-         NSMutableArray *statusFrameArray = [NSMutableArray array];
-         for (IWStatus *status in statusArray) {
-             IWStatusFrame *statusFrame = [[IWStatusFrame alloc] init];
-             // 传递微博模型数据
-             statusFrame.status = status;
-             [statusFrameArray addObject:statusFrame];
-         }
-         
-         // 添加新数据到旧数据的后面
-         [self.statusFrames addObjectsFromArray:statusFrameArray];
-         
-         // 刷新表格
-         [self.tableView reloadData];
-         
-         // 让刷新控件停止显示刷新状态
-         [self.footer endRefreshing];
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         // 让刷新控件停止显示刷新状态
-         [self.footer endRefreshing];
-     }];
+    // 2.发送请求
+    [IWHttpTool getWithURL:@"https://api.weibo.com/2/statuses/home_timeline.json" params:params success:^(id json) {
+        // 将字典数组转为模型数组(里面放的就是IWStatus模型)
+        NSArray *statusArray = [IWStatus objectArrayWithKeyValuesArray:json[@"statuses"]];
+        // 创建frame模型对象
+        NSMutableArray *statusFrameArray = [NSMutableArray array];
+        for (IWStatus *status in statusArray) {
+            IWStatusFrame *statusFrame = [[IWStatusFrame alloc] init];
+            // 传递微博模型数据
+            statusFrame.status = status;
+            [statusFrameArray addObject:statusFrame];
+        }
+        
+        // 添加新数据到旧数据的后面
+        [self.statusFrames addObjectsFromArray:statusFrameArray];
+        
+        // 刷新表格
+        [self.tableView reloadData];
+        
+        // 让刷新控件停止显示刷新状态
+        [self.footer endRefreshing];
+    } failure:^(NSError *error) {
+        // 让刷新控件停止显示刷新状态
+        [self.footer endRefreshing];
+    }];
 }
 
 /**
@@ -179,10 +168,7 @@
  */
 - (void)loadNewData
 {
-    // 1.创建请求管理对象
-    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
-    
-    // 2.封装请求参数
+    // 1.封装请求参数
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"access_token"] = [IWAccountTool account].access_token;
     params[@"count"] = @5;
@@ -192,42 +178,41 @@
         params[@"since_id"] = statusFrame.status.idstr;
     }
     
-    // 3.发送请求
-    [mgr GET:@"https://api.weibo.com/2/statuses/home_timeline.json" parameters:params
-     success:^(AFHTTPRequestOperation *operation, id responseObject) {
-         // 将字典数组转为模型数组(里面放的就是IWStatus模型)
-         NSArray *statusArray = [IWStatus objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
-         // 创建frame模型对象
-         NSMutableArray *statusFrameArray = [NSMutableArray array];
-         for (IWStatus *status in statusArray) {
-             IWStatusFrame *statusFrame = [[IWStatusFrame alloc] init];
-             // 传递微博模型数据
-             statusFrame.status = status;
-             [statusFrameArray addObject:statusFrame];
-         }
-         
-         // 将最新的数据追加到旧数据的最前面
-         // 旧数据: self.statusFrames
-         // 新数据: statusFrameArray
-         NSMutableArray *tempArray = [NSMutableArray array];
-         // 添加statusFrameArray的所有元素 添加到 tempArray中
-         [tempArray addObjectsFromArray:statusFrameArray];
-         // 添加self.statusFrames的所有元素 添加到 tempArray中
-         [tempArray addObjectsFromArray:self.statusFrames];
-         self.statusFrames = tempArray;
-         
-         // 刷新表格
-         [self.tableView reloadData];
-         
-         // 让刷新控件停止显示刷新状态
-         [self.header endRefreshing];
-         
-         // 显示最新微博的数量(给用户一些友善的提示)
-         [self showNewStatusCount:statusFrameArray.count];
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         // 让刷新控件停止显示刷新状态
-         [self.header endRefreshing];
-     }];
+    // 2.发送请求
+    [IWHttpTool getWithURL:@"https://api.weibo.com/2/statuses/home_timeline.json" params:params success:^(id json) {
+        // 将字典数组转为模型数组(里面放的就是IWStatus模型)
+        NSArray *statusArray = [IWStatus objectArrayWithKeyValuesArray:json[@"statuses"]];
+        // 创建frame模型对象
+        NSMutableArray *statusFrameArray = [NSMutableArray array];
+        for (IWStatus *status in statusArray) {
+            IWStatusFrame *statusFrame = [[IWStatusFrame alloc] init];
+            // 传递微博模型数据
+            statusFrame.status = status;
+            [statusFrameArray addObject:statusFrame];
+        }
+        
+        // 将最新的数据追加到旧数据的最前面
+        // 旧数据: self.statusFrames
+        // 新数据: statusFrameArray
+        NSMutableArray *tempArray = [NSMutableArray array];
+        // 添加statusFrameArray的所有元素 添加到 tempArray中
+        [tempArray addObjectsFromArray:statusFrameArray];
+        // 添加self.statusFrames的所有元素 添加到 tempArray中
+        [tempArray addObjectsFromArray:self.statusFrames];
+        self.statusFrames = tempArray;
+        
+        // 刷新表格
+        [self.tableView reloadData];
+        
+        // 让刷新控件停止显示刷新状态
+        [self.header endRefreshing];
+        
+        // 显示最新微博的数量(给用户一些友善的提示)
+        [self showNewStatusCount:statusFrameArray.count];
+    } failure:^(NSError *error) {
+        // 让刷新控件停止显示刷新状态
+        [self.header endRefreshing];
+    }];
 }
 
 /**

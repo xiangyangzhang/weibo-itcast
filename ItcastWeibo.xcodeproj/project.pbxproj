@@ -90,6 +90,7 @@
 		086E639919188CD200DDB83F /* IWTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 086E639819188CD200DDB83F /* IWTitleButton.m */; };
 		086E63A01918938100DDB83F /* IWNewfeatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 086E639F1918938100DDB83F /* IWNewfeatureViewController.m */; };
 		086EF0C61929EA5A00A9EF6D /* IWComposePhotosView.m in Sources */ = {isa = PBXBuildFile; fileRef = 086EF0C51929EA5A00A9EF6D /* IWComposePhotosView.m */; };
+		086EF0CA1929F84200A9EF6D /* IWHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 086EF0C91929F84200A9EF6D /* IWHttpTool.m */; };
 		08AFD1AD191F069700F4A911 /* IWStatusToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AFD1AC191F069700F4A911 /* IWStatusToolbar.m */; };
 		08AFD1B0191F1E2E00F4A911 /* IWReweetStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AFD1AF191F1E2E00F4A911 /* IWReweetStatusView.m */; };
 		08AFD1B3191F20BA00F4A911 /* IWStatusTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AFD1B2191F20BA00F4A911 /* IWStatusTopView.m */; };
@@ -290,6 +291,8 @@
 		086E639F1918938100DDB83F /* IWNewfeatureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IWNewfeatureViewController.m; sourceTree = "<group>"; };
 		086EF0C41929EA5A00A9EF6D /* IWComposePhotosView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IWComposePhotosView.h; sourceTree = "<group>"; };
 		086EF0C51929EA5A00A9EF6D /* IWComposePhotosView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IWComposePhotosView.m; sourceTree = "<group>"; };
+		086EF0C81929F84200A9EF6D /* IWHttpTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IWHttpTool.h; sourceTree = "<group>"; };
+		086EF0C91929F84200A9EF6D /* IWHttpTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IWHttpTool.m; sourceTree = "<group>"; };
 		08AFD1AB191F069700F4A911 /* IWStatusToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IWStatusToolbar.h; sourceTree = "<group>"; };
 		08AFD1AC191F069700F4A911 /* IWStatusToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IWStatusToolbar.m; sourceTree = "<group>"; };
 		08AFD1AE191F1E2E00F4A911 /* IWReweetStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IWReweetStatusView.h; sourceTree = "<group>"; };
@@ -660,6 +663,7 @@
 		0829D8F519173977005E4B1D /* Other(其他) */ = {
 			isa = PBXGroup;
 			children = (
+				086EF0C71929F83600A9EF6D /* Tool */,
 				0863B95B191B1DAC00B6BA5F /* Lib */,
 				0829D90419173CE3005E4B1D /* Category */,
 				0829D8F619173977005E4B1D /* ItcastWeibo-Prefix.pch */,
@@ -902,6 +906,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		086EF0C71929F83600A9EF6D /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				086EF0C81929F84200A9EF6D /* IWHttpTool.h */,
+				086EF0C91929F84200A9EF6D /* IWHttpTool.m */,
+			);
+			path = Tool;
+			sourceTree = "<group>";
+		};
 		08F5B3021920B1350078735A /* MJRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -1077,6 +1090,7 @@
 				0863BA06191B7C1D00B6BA5F /* NSObject+MJKeyValue.m in Sources */,
 				0863B9DB191B6E5B00B6BA5F /* SDWebImageDecoder.m in Sources */,
 				086EF0C61929EA5A00A9EF6D /* IWComposePhotosView.m in Sources */,
+				086EF0CA1929F84200A9EF6D /* IWHttpTool.m in Sources */,
 				0863B9DE191B6E5B00B6BA5F /* SDWebImageManager.m in Sources */,
 				080883E119205BD900A6840F /* MJPhoto.m in Sources */,
 				082BF40A1929B0390034484F /* IWComposeToolbar.m in Sources */,
